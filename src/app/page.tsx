@@ -34,5 +34,6 @@ export default async function Home() {
     gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <h1>Hello world!</h1>
     </div>
+    </div>
   );
 }
