@@ -9,7 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-
+    "@prisma/client": "^5.22.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.461.0",
+    "next": "15.0.3",
+    "openai": "^4.73.1",
+    "prisma": "^5.22.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
