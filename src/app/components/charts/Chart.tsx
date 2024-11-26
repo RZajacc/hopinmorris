@@ -6,7 +6,10 @@ import dynamic from "next/dynamic";
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 type Props = {
-  data: any;
+  data: {
+    data: any;
+    layout: any;
+  };
 };
 
 function Chart({ data }: Props) {
