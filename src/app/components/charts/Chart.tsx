@@ -5,24 +5,12 @@ import dynamic from "next/dynamic";
 // Dynamic import was necessary to make plotly work without throwing an error
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
-type Props = {};
+type Props = {
+  data: any;
+};
 
-function Chart({}: Props) {
-  return (
-    <Plot
-      data={[
-        {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
-          type: "scatter",
-          mode: "lines+markers",
-          marker: { color: "red" },
-        },
-        { type: "bar", x: [1, 2, 3], y: [2, 5, 3] },
-      ]}
-      layout={{ width: 320, height: 240, title: { text: "A Fancy Plot" } }}
-    />
-  );
+function Chart({ data }: Props) {
+  return <Plot data={data.data} layout={data.layout} />;
 }
 
 export default Chart;
