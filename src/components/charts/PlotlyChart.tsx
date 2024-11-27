@@ -12,8 +12,8 @@ type Props = {
   };
 };
 
-function SampleChart({ data }: Props) {
+function PlotlyChart({ data }: Props) {
   return <Plot data={data.data} layout={data.layout} />;
 }
 
-export default SampleChart;
+export default PlotlyChart;
