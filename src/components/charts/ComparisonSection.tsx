@@ -14,13 +14,16 @@ type Props = {
 };
 
 function ComparisonSection({ teamPlotData, depPlotData }: Props) {
+  // Currently selected plot
   const [plot, setPlot] = useState("team");
 
+  // Base class for a button
   const baseClass =
     "py-2 px-3 rounded-xl border shadow-md shadow-gray-600 hover:bg-green-300 transition-colors duration-700 ";
   return (
     <div>
       <section className="space-x-3 my-5 flex justify-center">
+        {/* Buttons for selecting currently active plot */}
         <button
           className={
             baseClass +
@@ -48,6 +51,7 @@ function ComparisonSection({ teamPlotData, depPlotData }: Props) {
           Department
         </button>
       </section>
+      {/* Plot with filled with the data based on selected plot */}
       <PlotlyChart data={plot === "team" ? teamPlotData : depPlotData} />
     </div>
   );
