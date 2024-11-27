@@ -39,7 +39,7 @@ async function page() {
         valuable insights about our contribution to reducing CO2 emmisions
         within our team!
       </h1>
-      <p className="text-center my-3">
+      <p className="text-center my-5">
         Lets begin with analysing the contribution divided by teams and
         departments:
       </p>
@@ -49,10 +49,14 @@ async function page() {
       />
 
       {/* Emission charts */}
-
+      <p className="text-center my-5">
+        Lets continue with a breakdown of CO2 emissions saved by each team and
+        depertment:
+      </p>
       {/* Rides plot */}
       <p className="text-center my-5">
-        Breakdown of previous rides divided by pickup stations:
+        And lets finish with a breakdown of previous rides divided by pickup
+        stations:
       </p>
       <Image src={ridesPlot} alt="rides plot" className="w-[700px]" />
     </div>
