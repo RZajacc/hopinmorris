@@ -1,16 +1,14 @@
 import { Metadata } from "next";
 import { promises as fs } from "fs";
 import React from "react";
-import Chart from "@/components/charts/Chart";
+import SampleChart from "@/components/charts/SampleChart";
 import PickupStations from "@/components/stationsMap/PickupStations";
-
-type Props = {};
 
 export const metadata: Metadata = {
   title: "Analytics",
 };
 
-async function page({}: Props) {
+async function page() {
   const file = await fs.readFile(
     process.cwd() + "/src/assets/chart.json",
     "utf8"
@@ -22,7 +20,7 @@ async function page({}: Props) {
         The chart is only temporary to test python plotly implementation
       </h1>
       <PickupStations width="70%" height="300px" />
-      <Chart data={data} />
+      <SampleChart data={data} />
     </div>
   );
 }

@@ -12,8 +12,8 @@ type Props = {
   };
 };
 
-function Chart({ data }: Props) {
+function SampleChart({ data }: Props) {
   return <Plot data={data.data} layout={data.layout} />;
 }
 
-export default Chart;
+export default SampleChart;
