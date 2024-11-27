@@ -1,15 +1,148 @@
 {
   "data": [
     {
-      "hole": 0.4,
-      "labels": ["A", "B", "D", "E", "C"],
-      "marker": {
-        "colors": ["#00453d", "#3a7155", "#749d6e", "#aeca86", "#e7f59e"]
-      },
-      "textinfo": "label+percent",
-      "texttemplate": "%{label}\u003cbr\u003e%{percent:.0%}",
-      "values": [130, 20, 20, 18, 10],
-      "type": "pie"
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Beta",
+      "marker": { "color": "#003C33", "pattern": { "shape": "" } },
+      "name": "Beta",
+      "offsetgroup": "Beta",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Beta"],
+      "xaxis": "x",
+      "y": [96.24],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Delta",
+      "marker": { "color": "#00453D", "pattern": { "shape": "" } },
+      "name": "Delta",
+      "offsetgroup": "Delta",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Delta"],
+      "xaxis": "x",
+      "y": [78.39],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Alpha",
+      "marker": { "color": "#00453D", "pattern": { "shape": "" } },
+      "name": "Alpha",
+      "offsetgroup": "Alpha",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Alpha"],
+      "xaxis": "x",
+      "y": [60.839999999999996],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Gamma",
+      "marker": { "color": "#1F5C46", "pattern": { "shape": "" } },
+      "name": "Gamma",
+      "offsetgroup": "Gamma",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Gamma"],
+      "xaxis": "x",
+      "y": [47.82],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Echo",
+      "marker": { "color": "#387F5A", "pattern": { "shape": "" } },
+      "name": "Echo",
+      "offsetgroup": "Echo",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Echo"],
+      "xaxis": "x",
+      "y": [42.91],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Foxtrot",
+      "marker": { "color": "#5A9F6D", "pattern": { "shape": "" } },
+      "name": "Foxtrot",
+      "offsetgroup": "Foxtrot",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Foxtrot"],
+      "xaxis": "x",
+      "y": [38.61],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Charlie",
+      "marker": { "color": "#7BBF81", "pattern": { "shape": "" } },
+      "name": "Charlie",
+      "offsetgroup": "Charlie",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Charlie"],
+      "xaxis": "x",
+      "y": [24.11],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Bravo",
+      "marker": { "color": "#A3D79D", "pattern": { "shape": "" } },
+      "name": "Bravo",
+      "offsetgroup": "Bravo",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Bravo"],
+      "xaxis": "x",
+      "y": [20.549999999999997],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Team=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "Golf",
+      "marker": { "color": "#E7F59E", "pattern": { "shape": "" } },
+      "name": "Golf",
+      "offsetgroup": "Golf",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["Golf"],
+      "xaxis": "x",
+      "y": [7.59],
+      "yaxis": "y",
+      "type": "bar"
     }
   ],
   "layout": {
@@ -408,12 +541,33 @@
         "mapbox": { "style": "light" }
       }
     },
-    "title": {
-      "font": { "size": 24 },
-      "text": "Users by Department",
-      "x": 0.5,
-      "y": 0.9
+    "xaxis": {
+      "anchor": "y",
+      "domain": [0.0, 1.0],
+      "title": { "text": "Team" },
+      "categoryorder": "array",
+      "categoryarray": [
+        "Beta",
+        "Delta",
+        "Alpha",
+        "Gamma",
+        "Echo",
+        "Foxtrot",
+        "Charlie",
+        "Bravo",
+        "Golf"
+      ]
     },
+    "yaxis": {
+      "anchor": "x",
+      "domain": [0.0, 1.0],
+      "title": { "text": "CO2 Emissions Saved (kg)" }
+    },
+    "legend": { "title": { "text": "Team" }, "tracegroupgap": 0 },
+    "title": { "text": "CO2 Emissions Savings per Team" },
+    "barmode": "relative",
+    "plot_bgcolor": "white",
+    "paper_bgcolor": "white",
     "showlegend": false
   }
 }

@@ -14,20 +14,33 @@ export const metadata: Metadata = {
 };
 
 async function page() {
-  // Collect the department data
-  const departmentFile = await fs.readFile(
+  // Collect the department data for the rides
+  const departmentRideFile = await fs.readFile(
     process.cwd() + "/src/assets/donut_chart_departments.json",
     "utf8"
   );
-  const departmentData = JSON.parse(departmentFile);
+  const departmenRidetData = JSON.parse(departmentRideFile);
 
-  // Collect the team data
-  const teamFile = await fs.readFile(
+  // Collect the team data for the rides
+  const teamRideFile = await fs.readFile(
     process.cwd() + "/src/assets/donut_chart_team.json",
     "utf8"
   );
-  const teamtData = JSON.parse(teamFile);
+  const teamtRideData = JSON.parse(teamRideFile);
 
+  // Collect the department data for co2 emissions
+  const departmentCO2File = await fs.readFile(
+    process.cwd() + "/src/assets/CO2perDepartment.json",
+    "utf8"
+  );
+  const departmenCO2Data = JSON.parse(departmentCO2File);
+
+  // Collect the team data for co2 emissions
+  const teamCO2File = await fs.readFile(
+    process.cwd() + "/src/assets/CO2perTeam.json",
+    "utf8"
+  );
+  const teamtCO2Data = JSON.parse(teamCO2File);
   // await dbConnect();
 
   // const users = await user.find({});
@@ -44,8 +57,8 @@ async function page() {
         departments:
       </p>
       <ComparisonSection
-        teamPlotData={teamtData}
-        depPlotData={departmentData}
+        teamPlotData={teamtRideData}
+        depPlotData={departmenRidetData}
       />
 
       {/* Emission charts */}
@@ -53,12 +66,16 @@ async function page() {
         Lets continue with a breakdown of CO2 emissions saved by each team and
         depertment:
       </p>
+      <ComparisonSection
+        teamPlotData={teamtCO2Data}
+        depPlotData={departmenCO2Data}
+      />
       {/* Rides plot */}
       <p className="text-center my-5">
         And lets finish with a breakdown of previous rides divided by pickup
         stations:
       </p>
-      <Image src={ridesPlot} alt="rides plot" className="w-[700px]" />
+      <Image src={ridesPlot} alt="rides plot" className="w-[700px]" priority />
     </div>
   );
 }

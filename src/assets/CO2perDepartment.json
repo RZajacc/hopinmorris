@@ -1,15 +1,84 @@
 {
   "data": [
     {
-      "hole": 0.4,
-      "labels": ["A", "B", "D", "E", "C"],
-      "marker": {
-        "colors": ["#00453d", "#3a7155", "#749d6e", "#aeca86", "#e7f59e"]
-      },
-      "textinfo": "label+percent",
-      "texttemplate": "%{label}\u003cbr\u003e%{percent:.0%}",
-      "values": [130, 20, 20, 18, 10],
-      "type": "pie"
+      "alignmentgroup": "True",
+      "hovertemplate": "Department=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "A",
+      "marker": { "color": "#00453D", "pattern": { "shape": "" } },
+      "name": "A",
+      "offsetgroup": "A",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["A"],
+      "xaxis": "x",
+      "y": [267.87],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Department=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "E",
+      "marker": { "color": "#1F5C46", "pattern": { "shape": "" } },
+      "name": "E",
+      "offsetgroup": "E",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["E"],
+      "xaxis": "x",
+      "y": [46.199999999999996],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Department=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "B",
+      "marker": { "color": "#387F5A", "pattern": { "shape": "" } },
+      "name": "B",
+      "offsetgroup": "B",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["B"],
+      "xaxis": "x",
+      "y": [41.79],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Department=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "D",
+      "marker": { "color": "#5A9F6D", "pattern": { "shape": "" } },
+      "name": "D",
+      "offsetgroup": "D",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["D"],
+      "xaxis": "x",
+      "y": [37.089999999999996],
+      "yaxis": "y",
+      "type": "bar"
+    },
+    {
+      "alignmentgroup": "True",
+      "hovertemplate": "Department=%{x}\u003cbr\u003eCO2 Emissions Saved (kg)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e",
+      "legendgroup": "C",
+      "marker": { "color": "#7BBF81", "pattern": { "shape": "" } },
+      "name": "C",
+      "offsetgroup": "C",
+      "orientation": "v",
+      "showlegend": true,
+      "textposition": "auto",
+      "x": ["C"],
+      "xaxis": "x",
+      "y": [24.11],
+      "yaxis": "y",
+      "type": "bar"
     }
   ],
   "layout": {
@@ -408,12 +477,23 @@
         "mapbox": { "style": "light" }
       }
     },
-    "title": {
-      "font": { "size": 24 },
-      "text": "Users by Department",
-      "x": 0.5,
-      "y": 0.9
+    "xaxis": {
+      "anchor": "y",
+      "domain": [0.0, 1.0],
+      "title": { "text": "Department" },
+      "categoryorder": "array",
+      "categoryarray": ["A", "E", "B", "D", "C"]
     },
+    "yaxis": {
+      "anchor": "x",
+      "domain": [0.0, 1.0],
+      "title": { "text": "CO2 Emissions Saved (kg)" }
+    },
+    "legend": { "title": { "text": "Department" }, "tracegroupgap": 0 },
+    "title": { "text": "CO2 Emissions Savings per Department" },
+    "barmode": "relative",
+    "plot_bgcolor": "white",
+    "paper_bgcolor": "white",
     "showlegend": false
   }
 }
