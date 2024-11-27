@@ -26,4 +26,6 @@ const rideSchema = new Schema(
   { timestamps: true }
 );
 
-export const Ride = models.Ride || mongoose.model("Ride", rideSchema);
+const Ride = models.Ride || mongoose.model("ride", rideSchema);
+
+export default Ride;
