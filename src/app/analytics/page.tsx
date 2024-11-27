@@ -31,10 +31,16 @@ async function page() {
   // const users = await user.find({});
 
   return (
-    <div>
-      <h1 className="font-bold">
-        The chart is only temporary to test python plotly implementation
+    <div className="grid justify-center max-w-3xl mx-auto mt-4">
+      <h1 className="font-semibold text-lg text-center">
+        Welcome to HopInMorris analytics section. Here you can gain some
+        valuable insights about our contribution to reducing CO2 emmisions
+        within our team!
       </h1>
+      <p className="text-center my-3">
+        Lets begin with analysing the contribution divided by teams and
+        departments:
+      </p>
       <ComparisonSection
         teamPlotData={teamtData}
         depPlotData={departmentData}

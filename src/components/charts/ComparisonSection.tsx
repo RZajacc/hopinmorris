@@ -22,7 +22,7 @@ function ComparisonSection({ teamPlotData, depPlotData }: Props) {
     "py-2 px-3 rounded-xl border shadow-md shadow-gray-600 hover:bg-green-300 transition-colors duration-700 ";
   return (
     <div>
-      <section className="space-x-3 my-5 flex justify-center">
+      <section className="space-x-3 mb-4 flex justify-center">
         {/* Buttons for selecting currently active plot */}
         <button
           className={
