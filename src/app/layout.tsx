@@ -10,6 +10,7 @@ import { Inter } from "next/font/google"
 import Navbar from "@/components/NavBar"
 // import AuthProvider from "@/components/AuthProvider"
 import "./globals.css"
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,6 +29,7 @@ export default function RootLayout({
             <main className="container mx-auto px-4 py-8">
               {children}
             </main>
+            <Toaster />
           </div>
         {/* </AuthProvider> */}
       </body>

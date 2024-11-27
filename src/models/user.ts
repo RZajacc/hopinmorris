@@ -1,6 +1,6 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose from 'mongoose';
 
-const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -24,11 +24,11 @@ const UserSchema = new Schema(
     carLicencePlate: {
       type: String,
     },
-    rides: [{ type: mongoose.Schema.Types.ObjectId, ref: "ride" }],
+    rides: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ride' }],
   },
   { timestamps: true }
 );
 
-const User = models.user || mongoose.model("user", UserSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 export default User;
