@@ -3,6 +3,8 @@ import { promises as fs } from "fs";
 import React from "react";
 import SampleChart from "@/components/charts/SampleChart";
 import PickupStations from "@/components/stationsMap/PickupStations";
+import dbConnect from "@/lib/dbConnect";
+import user from "@/models/user";
 
 export const metadata: Metadata = {
   title: "Analytics",
@@ -14,6 +16,11 @@ async function page() {
     "utf8"
   );
   const data = JSON.parse(file);
+
+  await dbConnect();
+
+  const users = await user.find({});
+
   return (
     <div>
       <h1 className="font-bold">

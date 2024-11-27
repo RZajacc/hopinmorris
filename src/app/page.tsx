@@ -1,10 +1,10 @@
 import LoginForm from "@/components/forms/LoginForm";
 import Loader from "@/components/Loader";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]";
+// import { authOptions } from "./api/auth/[...nextauth]";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
   // if (status === "loading") {
   //   return (
