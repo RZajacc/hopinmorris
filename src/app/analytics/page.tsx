@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import { promises as fs } from "fs";
 import React from "react";
+import ridesPlot from "@/assets/rides_plot.png";
 import PlotlyChart from "@/components/charts/PlotlyChart";
 import PickupStations from "@/components/stationsMap/PickupStations";
 import dbConnect from "@/lib/dbConnect";
 import user from "@/models/user";
 import ComparisonSection from "@/components/charts/ComparisonSection";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Analytics",
@@ -45,6 +47,14 @@ async function page() {
         teamPlotData={teamtData}
         depPlotData={departmentData}
       />
+
+      {/* Emission charts */}
+
+      {/* Rides plot */}
+      <p className="text-center my-5">
+        Breakdown of previous rides divided by pickup stations:
+      </p>
+      <Image src={ridesPlot} alt="rides plot" className="w-[700px]" />
     </div>
   );
 }
