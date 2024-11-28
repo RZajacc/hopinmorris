@@ -26,6 +26,9 @@ export default async function Navbar() {
             <Link href="/rides" className="hover:text-blue-600">
               Rides
             </Link>
+            <Link href="/analytics" className="hover:text-blue-600">
+              Analytics
+            </Link>
             <Link href="/chat" className="hover:text-blue-600">
             Chat
             </Link>

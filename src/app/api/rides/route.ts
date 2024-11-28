@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import { IUser, ILocation } from '@/types';
-import Ride from '@/models/ride';
+import { Models } from '@/models/all_models';
+
 
 export async function GET() { 
   try {
     await dbConnect();
     
-    const rides = await Ride.find()
+    const rides = await Models.Ride.find()
       .populate<{ driver: IUser }>('driver', 'name email')
       .populate<{ passengers: IUser[] }>('passengers', 'name email')
       .populate<{ startLocation: ILocation }>('startLocation', 'LocationName')
