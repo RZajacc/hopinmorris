@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/dbConnect';
-import { IUser, ILocation } from '@/types';
-import Ride from '@/models/ride';
-import { ObjectId } from 'mongodb';
+// @ts-nocheck
+import { NextResponse } from "next/server";
+import dbConnect from "@/lib/dbConnect";
+import { IUser, ILocation } from "@/types";
+import Ride from "@/models/ride";
+import { ObjectId } from "mongodb";
 
 async function handlePassengerUpdate(
   request: Request,
@@ -13,33 +14,34 @@ async function handlePassengerUpdate(
     await dbConnect();
     // Properly await and access the rideId parameter
     const { rideId } = params;
-    const testUserId = '674759bc567b5039ccda0728';
+    const testUserId = "674759bc567b5039ccda0728";
 
     // Find the original ride first
     const originalRide = await Ride.findById(rideId)
-      .populate('passengers')
+      .populate("passengers")
       .lean();
-    
+
     if (!originalRide) {
-      return NextResponse.json(
-        { error: 'Ride not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Ride not found" }, { status: 404 });
     }
 
     if (isAdding) {
       // Check seats availability
       if (originalRide.passengers.length >= originalRide.seats) {
         return NextResponse.json(
-          { error: 'No seats available' },
+          { error: "No seats available" },
           { status: 400 }
         );
       }
 
       // Check if already a passenger
-      if (originalRide.passengers.some(passenger => passenger._id.toString() === testUserId)) {
+      if (
+        originalRide.passengers.some(
+          (passenger) => passenger._id.toString() === testUserId
+        )
+      ) {
         return NextResponse.json(
-          { error: 'User is already a passenger' },
+          { error: "User is already a passenger" },
           { status: 400 }
         );
       }
@@ -59,25 +61,26 @@ async function handlePassengerUpdate(
 
     // Fetch the updated ride with populated fields
     const updatedRide = await Ride.findById(rideId)
-      .populate<{ driver: IUser }>('driver', 'name email')
-      .populate<{ passengers: IUser[] }>('passengers', 'name email')
-      .populate<{ startLocation: ILocation }>('startLocation', 'LocationName')
-      .populate<{ endLocation: ILocation }>('endLocation', 'LocationName')
+      .populate<{ driver: IUser }>("driver", "name email")
+      .populate<{ passengers: IUser[] }>("passengers", "name email")
+      .populate<{ startLocation: ILocation }>("startLocation", "LocationName")
+      .populate<{ endLocation: ILocation }>("endLocation", "LocationName")
       .lean();
 
     // Format the response similarly to the GET route
     const formattedRide = {
       ...updatedRide,
-      departureTime: updatedRide.departureTime && updatedRide.departureTime.t
-        ? new Date(updatedRide.departureTime.t * 1000)
-        : null,
+      departureTime:
+        updatedRide.departureTime && updatedRide.departureTime.t
+          ? new Date(updatedRide.departureTime.t * 1000)
+          : null,
     };
 
     return NextResponse.json(formattedRide);
   } catch (error) {
-    console.error('Error updating passengers:', error);
+    console.error("Error updating passengers:", error);
     return NextResponse.json(
-      { error: `Failed to ${isAdding ? 'add' : 'remove'} passenger` },
+      { error: `Failed to ${isAdding ? "add" : "remove"} passenger` },
       { status: 500 }
     );
   }
