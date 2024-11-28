@@ -1,11 +1,18 @@
 {
   "data": [
     {
-      "hole": 0.4,
-      "labels": ["A", "B", "D", "E", "C"],
+      "hole": 0.3,
+      "labels": [
+        "Logistics",
+        "Operations",
+        "Sales",
+        "Management",
+        "Accounting"
+      ],
       "marker": {
         "colors": ["#00453d", "#3a7155", "#749d6e", "#aeca86", "#e7f59e"]
       },
+      "textfont": { "size": 9 },
       "textinfo": "label+percent",
       "texttemplate": "%{label}\u003cbr\u003e%{percent:.0%}",
       "values": [130, 20, 20, 18, 10],

@@ -14,6 +14,13 @@ export const metadata: Metadata = {
 };
 
 async function page() {
+  // Collect the total emissions saved data
+  const totalEmissionsFile = await fs.readFile(
+    process.cwd() + "/src/assets/pie_chart_total_co2.json",
+    "utf8"
+  );
+  const totalEmissionsData = JSON.parse(totalEmissionsFile);
+
   // Collect the department data for the rides
   const departmentRideFile = await fs.readFile(
     process.cwd() + "/src/assets/donut_chart_departments.json",
@@ -52,6 +59,13 @@ async function page() {
         valuable insights about our contribution to reducing CO2 emmisions
         within our team!
       </h1>
+      {/* Total emissions saved */}
+      <p className="text-center my-5">
+        Lets begin with analysing the contribution divided by teams and
+        departments:
+      </p>
+      <PlotlyChart data={totalEmissionsData} />
+      {/* Contribution by team */}
       <p className="text-center my-5">
         Lets begin with analysing the contribution divided by teams and
         departments:
