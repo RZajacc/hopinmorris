@@ -11,11 +11,18 @@ type Props = {
     data: any;
     layout: any;
   };
+  label1: string;
+  label2: string;
 };
 
-function ComparisonSection({ teamPlotData, depPlotData }: Props) {
+function ComparisonSection({
+  teamPlotData,
+  depPlotData,
+  label1,
+  label2,
+}: Props) {
   // Currently selected plot
-  const [plot, setPlot] = useState("team");
+  const [plot, setPlot] = useState("plot1");
 
   // Base class for a button
   const baseClass =
@@ -27,32 +34,28 @@ function ComparisonSection({ teamPlotData, depPlotData }: Props) {
         <button
           className={
             baseClass +
-            `${plot === "team" ? "bg-green-400 font-semibold" : "bg-gray-300"}`
+            `${plot === "plot1" ? "bg-green-400 font-semibold" : "bg-gray-300"}`
           }
           onClick={() => {
-            setPlot("team");
+            setPlot("plot1");
           }}
         >
-          Team
+          {label1}
         </button>
         <button
           className={
             baseClass +
-            `${
-              plot === "department"
-                ? "bg-green-400 font-semibold"
-                : "bg-gray-300"
-            }`
+            `${plot === "plot2" ? "bg-green-400 font-semibold" : "bg-gray-300"}`
           }
           onClick={() => {
-            setPlot("department");
+            setPlot("plot2");
           }}
         >
-          Department
+          {label2}
         </button>
       </section>
       {/* Plot with filled with the data based on selected plot */}
-      <PlotlyChart data={plot === "team" ? teamPlotData : depPlotData} />
+      <PlotlyChart data={plot === "plot1" ? teamPlotData : depPlotData} />
     </div>
   );
 }

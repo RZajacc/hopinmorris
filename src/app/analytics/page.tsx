@@ -81,6 +81,8 @@ async function page() {
       <ComparisonSection
         teamPlotData={teamtRideData}
         depPlotData={departmenRidetData}
+        label1="Team"
+        label2="Department"
       />
 
       {/* Emission charts */}
@@ -91,6 +93,8 @@ async function page() {
       <ComparisonSection
         teamPlotData={teamtCO2Data}
         depPlotData={departmenCO2Data}
+        label1="Team"
+        label2="Department"
       />
 
       {/* Daily and weekly emissions  */}
@@ -100,6 +104,8 @@ async function page() {
       <ComparisonSection
         teamPlotData={dailyemissionsData}
         depPlotData={weeklyEmissionsData}
+        label1="Daily"
+        label2="Weekly"
       />
 
       {/* Rides plot */}
