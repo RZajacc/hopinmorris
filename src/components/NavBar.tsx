@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from 'next/image'
 // import { getServerSession } from "next-auth"
 // import { SignInButton } from "./auth/SignInButton"
 // import { SignOutButton } from "./auth/SignOutButton"
@@ -12,10 +13,18 @@ export default async function Navbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
             <Link href="/" className="text-xl font-bold">
-              HopInMorris
+              <Image
+                src="/logo.png"
+                width={60}
+                height={50}
+                alt="HopIn Morris Logo"
+              />
             </Link>
-            <Link href="/" className="hover:text-red-600">
+            <Link href="/" className="hover:text-blue-600">
               Home
+            </Link>
+            <Link href="/rides" className="hover:text-blue-600">
+              Rides
             </Link>
             <Link href="/chat" className="hover:text-blue-600">
             Chat

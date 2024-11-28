@@ -1,31 +1,31 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose from 'mongoose';
 
-const rideSchema = new Schema(
+const rideSchema = new mongoose.Schema(
   {
     driver: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
+      ref: 'User',
     },
     startLocation: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Location',
     },
     endLocation: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Location',
     },
     departureTime: {
-      type: Date,
+      type: mongoose.Schema.Types.Date,
     },
     seats: {
       type: Number,
       required: true,
     },
-    passengers: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+    passengers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true }
 );
 
-const Ride = models.Ride || mongoose.model("ride", rideSchema);
+const Ride = mongoose.models.Ride || mongoose.model('Ride', rideSchema);
 
 export default Ride;
