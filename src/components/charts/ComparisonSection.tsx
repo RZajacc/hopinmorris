@@ -26,7 +26,7 @@ function ComparisonSection({
 
   // Base class for a button
   const baseClass =
-    "py-2 px-3 rounded-xl border shadow-md shadow-gray-600 hover:bg-green-300 transition-colors duration-700 ";
+    "py-2 px-3 rounded-xl border shadow-md shadow-gray-600 hover:bg-green-600 transition-colors duration-700 ";
   return (
     <div>
       <section className="space-x-3 mb-5 flex justify-center">
@@ -34,7 +34,11 @@ function ComparisonSection({
         <button
           className={
             baseClass +
-            `${plot === "plot1" ? "bg-green-400 font-semibold" : "bg-gray-300"}`
+            `${
+              plot === "plot1"
+                ? "bg-black text-white font-semibold"
+                : "bg-white border-2 border-black"
+            }`
           }
           onClick={() => {
             setPlot("plot1");
@@ -45,7 +49,11 @@ function ComparisonSection({
         <button
           className={
             baseClass +
-            `${plot === "plot2" ? "bg-green-400 font-semibold" : "bg-gray-300"}`
+            `${
+              plot === "plot2"
+                ? "bg-black text-white font-semibold"
+                : "bg-white border-2 border-black"
+            }`
           }
           onClick={() => {
             setPlot("plot2");
