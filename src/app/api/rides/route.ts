@@ -3,7 +3,7 @@ import dbConnect from '@/lib/dbConnect';
 import { IUser, ILocation } from '@/types';
 import Ride from '@/models/ride';
 
-export async function GET() {
+export async function GET() { 
   try {
     await dbConnect();
     

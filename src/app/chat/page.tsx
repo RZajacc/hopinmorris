@@ -81,7 +81,7 @@ export default function Chat() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
             disabled={isLoading}
-            className="flex-1"
+            className="flex-1 border-gray-300 focus:border-gray-600"
           />
           <Button type="submit" disabled={isLoading}>
             Send

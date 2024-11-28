@@ -1,66 +1,98 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
+import { IUser, ILocation } from '@/types';
 import Ride from '@/models/ride';
 import { ObjectId } from 'mongodb';
 
-export async function POST(
+async function handlePassengerUpdate(
   request: Request,
-  { params }: { params: { rideId: string } }
+  { params }: { params: { rideId: string } },
+  isAdding: boolean
 ) {
   try {
     await dbConnect();
-    const rideId = params.rideId;
-
-    // For testing purposes, we'll use a fixed user ID
+    // Properly await and access the rideId parameter
+    const { rideId } = params;
     const testUserId = '674759bc567b5039ccda0728';
 
-    // Find the ride first to check if seats are available
-    const ride = await Ride.findById(rideId).populate('passengers');
+    // Find the original ride first
+    const originalRide = await Ride.findById(rideId)
+      .populate('passengers')
+      .lean();
     
-    if (!ride) {
+    if (!originalRide) {
       return NextResponse.json(
         { error: 'Ride not found' },
         { status: 404 }
       );
     }
 
-    // Check if there are available seats
-    if (ride.passengers.length >= ride.seats) {
-      return NextResponse.json(
-        { error: 'No seats available' },
-        { status: 400 }
-      );
-    }
-
-    // Check if user is already a passenger
-    if (ride.passengers.some((passenger: { _id: { toString: () => string; }; }) => passenger._id.toString() === testUserId)) {
-      return NextResponse.json(
-        { error: 'User is already a passenger' },
-        { status: 400 }
-      );
-    }
-
-    // Add the passenger
-    const updatedRide = await Ride.findByIdAndUpdate(
-      rideId,
-      { $push: { passengers: new ObjectId(testUserId) } },
-      { 
-        new: true, // Return the updated document
-        runValidators: true
+    if (isAdding) {
+      // Check seats availability
+      if (originalRide.passengers.length >= originalRide.seats) {
+        return NextResponse.json(
+          { error: 'No seats available' },
+          { status: 400 }
+        );
       }
-    )
-    .populate('driver', 'name email')
-    .populate('passengers', 'name email')
-    .populate('startLocation', 'LocationName Address')
-    .populate('endLocation', 'LocationName Address')
-    .lean();
 
-    return NextResponse.json(updatedRide);
+      // Check if already a passenger
+      if (originalRide.passengers.some(passenger => passenger._id.toString() === testUserId)) {
+        return NextResponse.json(
+          { error: 'User is already a passenger' },
+          { status: 400 }
+        );
+      }
+
+      // Update passengers using updateOne to avoid validation issues
+      await Ride.updateOne(
+        { _id: rideId },
+        { $push: { passengers: new ObjectId(testUserId) } }
+      );
+    } else {
+      // Remove passenger using updateOne
+      await Ride.updateOne(
+        { _id: rideId },
+        { $pull: { passengers: new ObjectId(testUserId) } }
+      );
+    }
+
+    // Fetch the updated ride with populated fields
+    const updatedRide = await Ride.findById(rideId)
+      .populate<{ driver: IUser }>('driver', 'name email')
+      .populate<{ passengers: IUser[] }>('passengers', 'name email')
+      .populate<{ startLocation: ILocation }>('startLocation', 'LocationName')
+      .populate<{ endLocation: ILocation }>('endLocation', 'LocationName')
+      .lean();
+
+    // Format the response similarly to the GET route
+    const formattedRide = {
+      ...updatedRide,
+      departureTime: updatedRide.departureTime && updatedRide.departureTime.t
+        ? new Date(updatedRide.departureTime.t * 1000)
+        : null,
+    };
+
+    return NextResponse.json(formattedRide);
   } catch (error) {
-    console.error('Error adding passenger:', error);
+    console.error('Error updating passengers:', error);
     return NextResponse.json(
-      { error: 'Failed to add passenger' },
+      { error: `Failed to ${isAdding ? 'add' : 'remove'} passenger` },
       { status: 500 }
     );
   }
+}
+
+export async function POST(
+  request: Request,
+  context: { params: { rideId: string } }
+) {
+  return handlePassengerUpdate(request, context, true);
+}
+
+export async function DELETE(
+  request: Request,
+  context: { params: { rideId: string } }
+) {
+  return handlePassengerUpdate(request, context, false);
 }

@@ -38,6 +38,12 @@ export interface SimpleLocation {
   Address: string;
 }
 
+export interface SimpleUser {
+  _id: string;
+  name?: string;
+  email: string;
+}
+
 export interface RideWithLocations {
   _id: string;
   startLocation: SimpleLocation;

@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
+import { Check } from "lucide-react";
 import { formatDateString } from '@/lib/utils';
 import { RideWithLocations } from "@/types";
+import { cn } from "@/lib/utils";
 
 export default function Rides() {
   const [rides, setRides] = useState<RideWithLocations[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast()
+  const [loadingRideId, setLoadingRideId] = useState<string | null>(null);
+  const [changingSeats, setChangingSeats] = useState<Set<string>>(new Set());
+  const { toast } = useToast();
   
   // Our test user ID - in a real app, this would come from authentication
   const TEST_USER_ID = '674759bc567b5039ccda0728';
@@ -22,30 +25,35 @@ export default function Rides() {
   };
 
   // Helper function to get the button state for a ride
-  const getButtonState = (ride: RideWithLocations) => {
-    if (hasUserJoined(ride)) {
-      return {
-        text: '✓ Joined',
-        disabled: true,
-        className: 'bg-green-600 hover:bg-green-600 cursor-default'
-      };
-    }
-    
-    const availableSeats = ride.seats - (ride.passengers?.length || 0);
-    if (availableSeats <= 0) {
-      return {
-        text: 'Full',
-        disabled: true,
-        className: 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
-      };
-    }
-    
+const getButtonState = (ride: RideWithLocations) => {
+  const isJoined = hasUserJoined(ride);
+  const availableSeats = ride.seats - (ride.passengers?.length || 0);
+  
+  if (availableSeats <= 0 && !isJoined) {
     return {
-      text: 'Join Ride',
-      disabled: false,
-      className: ''
+      text: 'Full',
+      variant: 'secondary' as const,
+      disabled: true,
+      className: 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
     };
+  }
+  
+  if (isJoined) {
+    return {
+      text: 'Leave Ride',
+      variant: 'outline' as const,
+      disabled: false,
+      className: 'hover:bg-red-50 border-red-200 text-red-600 hover:text-red-700 transition-colors duration-200'
+    };
+  }
+  
+  return {
+    text: 'Join Ride',
+    variant: 'default' as const,
+    disabled: false,
+    className: 'hover:bg-green-50 hover:text-green-600 transition-colors duration-200'
   };
+};
 
   const fetchRides = async () => {
     try {
@@ -64,17 +72,13 @@ export default function Rides() {
     fetchRides();
   }, []);
 
-  const handleJoinRide = async (rideId: string) => {
-    // Don't proceed if user has already joined
-    const ride = rides.find(r => r._id === rideId);
-    if (ride && hasUserJoined(ride)) {
-      return;
-    }
+  const handleJoinOrLeaveRide = async (rideId: string, isJoining: boolean) => {
+    if (loadingRideId) return; // Prevent multiple simultaneous requests
 
     try {
-      setLoading(true);
+      setLoadingRideId(rideId);
       const response = await fetch(`/api/rides/${rideId}/passengers`, {
-        method: 'POST',
+        method: isJoining ? 'POST' : 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -82,24 +86,36 @@ export default function Rides() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to join ride');
+        throw new Error(errorData.error || `Failed to ${isJoining ? 'join' : 'leave'} ride`);
       }
+
+      // Add rideId to changingSeats for animation
+      setChangingSeats(prev => new Set(prev).add(rideId));
+
+      // Remove from changingSeats after animation
+      setTimeout(() => {
+        setChangingSeats(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(rideId);
+          return newSet;
+        });
+      }, 1000);
 
       await fetchRides(); // Refresh the rides list
       
       toast({
         title: "Success!",
-        description: "You have successfully joined the ride.",
+        description: `You have successfully ${isJoining ? 'joined' : 'left'} the ride.`,
       });
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to join ride';
+      const errorMessage = err instanceof Error ? err.message : `Failed to ${isJoining ? 'join' : 'leave'} ride`;
       toast({
         title: "Error",
         description: errorMessage,
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingRideId(null);
     }
   };
 
@@ -114,14 +130,22 @@ export default function Rides() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {rides.map((ride) => {
           const buttonState = getButtonState(ride);
+          const isJoined = hasUserJoined(ride);
+          const isLoading = loadingRideId === ride._id;
+          const isChangingSeats = changingSeats.has(ride._id);
           
           return (
-            <Card 
-              key={ride._id.toString()} 
-              className="shadow-lg transition-shadow"
+            <Card
+              key={ride._id.toString()}
+              className="shadow-lg transition-all duration-300"
             >
-              <CardHeader>
-                <CardTitle className="text-lg">
+              <CardHeader className="relative">
+                {isJoined && (
+                  <div className="absolute right-4 top-4 text-green-600 bg-green-50 p-1 rounded-full">
+                    <Check size={16} />
+                  </div>
+                )}
+                <CardTitle className="text-lg pr-8">
                   {ride.startLocation?.LocationName || 'Loading...'} → {ride.endLocation?.LocationName || 'Loading...'}
                 </CardTitle>
                 {ride.departureTime && (
@@ -143,7 +167,10 @@ export default function Rides() {
                     </p>
                   )}
                   <p className="text-sm">
-                    <span className="font-semibold">Available Seats:</span> {ride.seats - (ride.passengers?.length || 0)} / {ride.seats}
+                    <span className="font-semibold">Available Seats: </span>
+                    <span>
+                      {ride.seats - (ride.passengers?.length || 0)} / {ride.seats}
+                    </span>
                   </p>
                   {ride.driver && (
                     <p className="text-sm">
@@ -152,11 +179,16 @@ export default function Rides() {
                   )}
                   
                   <Button
-                    className={`w-full mt-4 ${buttonState.className}`}
-                    onClick={() => handleJoinRide(ride._id.toString())}
-                    disabled={buttonState.disabled || loading}
+                    className={cn(
+                      "w-full mt-4 rounded-md",
+                      buttonState.className,
+                      isLoading && "opacity-80"
+                    )}
+                    onClick={() => handleJoinOrLeaveRide(ride._id.toString(), !isJoined)}
+                    disabled={buttonState.disabled || isLoading}
+                    variant={buttonState.variant}
                   >
-                    {loading ? 'Processing...' : buttonState.text}
+                    {isLoading ? 'Processing...' : buttonState.text}
                   </Button>
                 </div>
               </CardContent>
