@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import { IUser, ILocation } from "@/types";
