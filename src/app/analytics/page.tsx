@@ -21,36 +21,44 @@ async function page() {
   );
   const totalEmissionsData = JSON.parse(totalEmissionsFile);
 
-  // Collect the department data for the rides
+  // Collect the team and department data for the rides
   const departmentRideFile = await fs.readFile(
     process.cwd() + "/src/assets/donut_chart_departments.json",
     "utf8"
   );
   const departmenRidetData = JSON.parse(departmentRideFile);
 
-  // Collect the team data for the rides
   const teamRideFile = await fs.readFile(
     process.cwd() + "/src/assets/donut_chart_team.json",
     "utf8"
   );
   const teamtRideData = JSON.parse(teamRideFile);
 
-  // Collect the department data for co2 emissions
+  // Collect the team and department data for co2 emissions
   const departmentCO2File = await fs.readFile(
     process.cwd() + "/src/assets/CO2perDepartment.json",
     "utf8"
   );
   const departmenCO2Data = JSON.parse(departmentCO2File);
 
-  // Collect the team data for co2 emissions
   const teamCO2File = await fs.readFile(
     process.cwd() + "/src/assets/CO2perTeam.json",
     "utf8"
   );
   const teamtCO2Data = JSON.parse(teamCO2File);
-  // await dbConnect();
 
-  // const users = await user.find({});
+  // Collect the daily and weekly emissions
+  const dailyEmissionsFile = await fs.readFile(
+    process.cwd() + "/src/assets/daily_emissions_chart.json",
+    "utf8"
+  );
+  const dailyemissionsData = JSON.parse(dailyEmissionsFile);
+
+  const weeklyEmissionsFile = await fs.readFile(
+    process.cwd() + "/src/assets/weekly_emissions_chart.json",
+    "utf8"
+  );
+  const weeklyEmissionsData = JSON.parse(weeklyEmissionsFile);
 
   return (
     <div className="grid justify-center max-w-3xl mx-auto mt-4">
@@ -84,6 +92,16 @@ async function page() {
         teamPlotData={teamtCO2Data}
         depPlotData={departmenCO2Data}
       />
+
+      {/* Daily and weekly emissions  */}
+      <p className="text-center my-5">
+        Lets continue with a breakdown of daily and weekly emissions saved:
+      </p>
+      <ComparisonSection
+        teamPlotData={dailyemissionsData}
+        depPlotData={weeklyEmissionsData}
+      />
+
       {/* Rides plot */}
       <p className="text-center my-5">
         And lets finish with a breakdown of previous rides divided by pickup
